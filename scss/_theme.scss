@@ -1,0 +1,16 @@
+.theme {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  &__title {
+    font-size: 30px;
+  }
+
+  &__name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #00007a;
+  }
+}

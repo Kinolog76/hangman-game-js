@@ -1,5 +1,3 @@
-@charset "UTF-8";
-/*Обнуление*/
 * {
   padding: 0;
   margin: 0;
@@ -46,6 +44,7 @@ body {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  color: #0000bc;
 }
 
 input,
@@ -101,7 +100,6 @@ th {
   border-color: inherit;
   border-style: solid;
   border-width: 0;
-  /* border-spacing: 0px; */
 }
 
 h1,
@@ -153,9 +151,8 @@ p {
   line-height: 1.27;
 }
 
-/*--------------------*/
 .wrapper {
-  padding: 6% 20px;
+  padding: 3.5% 20px;
   width: 100%;
   height: 100%;
   display: -webkit-box;
@@ -170,7 +167,14 @@ p {
 }
 
 .container {
-  max-height: 700px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-height: 1000px;
   max-width: 900px;
   width: 100%;
   height: 100%;
@@ -200,6 +204,7 @@ body {
   font-size: 22px;
   font-weight: 700;
   z-index: 2;
+  color: #0000bc;
 }
 .button__wrapper button:hover::after {
   visibility: visible;
@@ -303,4 +308,30 @@ body {
     width: 30px;
     height: 30px;
   }
+}
+.theme {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+.theme__title {
+  font-size: 30px;
+}
+.theme__name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #00007a;
+}
+
+.game {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 100%;
+          flex: 1 1 100%;
 }/*# sourceMappingURL=style.css.map */

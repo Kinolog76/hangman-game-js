@@ -1,3 +1,41 @@
 .game {
   flex: 1 1 100%;
+  min-height: 400px;
+  margin-block: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+
+  &__draw {
+    position: relative;
+    flex: 1 1 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+
+  &__word {
+    flex: 1 1 50%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .game {
+    flex-direction: column;
+    gap: 30px;
+    min-height: unset;
+
+    &__draw {
+      width: 100%;
+      min-height: 400px;
+    }
+
+    &__word {
+      min-height: 100px;
+      flex: unset;
+    }
+  }
 }

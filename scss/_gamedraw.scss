@@ -1,0 +1,282 @@
+.game {
+
+  // .game__center
+
+  &__center {}
+
+  // .game__board
+
+  &__board {
+    position: absolute;
+    height: 385px;
+    width: 20px;
+    top: 50%;
+    left: 70px;
+    transform: translateY(-50%);
+    background-color: #471f0b;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 129%;
+      transform: rotate(-35deg);
+      display: block;
+      height: 120px;
+      width: 20px;
+      background-color: #7b3a19;
+      border: 1px solid #ffffff59;
+
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 129%;
+      transform: rotate(35deg);
+      display: block;
+      height: 120px;
+      width: 20px;
+      background-color: #7b3a19;
+      border: 1px solid #ffffff59;
+
+    }
+
+    &_hor {
+      position: absolute;
+      top: 15px;
+      left: -10px;
+      width: 260px;
+      height: 20px;
+      border: 1px solid #fff;
+      background-color: #471f0b;
+    }
+  }
+
+  // .game__rope
+
+  &__rope {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+
+    .er-1 & {
+      position: absolute;
+      opacity: 1;
+      visibility: visible;
+      top: 5px;
+      right: 50px;
+      height: 80px;
+      width: 4px;
+      background-color: #000000;
+      z-index: -1;
+      transition: all 0.5s;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -49px;
+        left: -17px;
+        width: 40px;
+        height: 50px;
+        border-radius: 50%;
+        border: 4px solid #000;
+        transition: all 0.5s;
+      }
+    }
+
+  }
+
+  // .game__head
+
+  &__head {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+
+    .er-2 & {
+      opacity: 1;
+      visibility: visible;
+      position: absolute;
+      top: 80px;
+      left: -20px;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      background-color: #000;
+      transition: all 0.5s;
+
+      &::after {
+        position: absolute;
+        left: 25%;
+        top: 7px;
+        content: 'o o';
+        color: #fff;
+      }
+
+      &::before {
+        content: '(';
+        position: absolute;
+        left: 40%;
+        top: 24px;
+        transform: rotate(90deg);
+        color: #fff;
+        font-weight: 900;
+      }
+    }
+
+    .er-2.er-7 & {
+      &::after {
+        position: absolute;
+        left: 25%;
+        top: 7px;
+        content: 'x x';
+        color: #fff;
+      }
+
+      &::before {
+        content: 'O';
+        position: absolute;
+        left: 40%;
+        top: 24px;
+        transform: rotate(90deg);
+        color: #fff;
+        font-weight: 700;
+      }
+    }
+  }
+
+  // .game__body
+
+  &__body {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+
+    .er-3 & {
+      opacity: 1;
+      visibility: visible;
+      position: absolute;
+      bottom: -100px;
+      left: 17px;
+      height: 110px;
+      width: 11px;
+      border-radius: 15px;
+      background-color: #000;
+      transition: all 0.5s;
+    }
+  }
+
+  // .game__hand
+
+  &__hand {
+    position: absolute;
+    height: 50px;
+    width: 9px;
+    border-radius: 4px;
+    background-color: #000;
+    // .game__hand_right
+
+    &_right {
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s;
+
+      .er-4 & {
+        opacity: 1;
+        visibility: visible;
+        top: 10px;
+        left: -20px;
+        transform: rotate(60deg);
+      }
+    }
+
+    // .game__hand_left
+
+    &_left {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s;
+
+      .er-5 & {
+        opacity: 1;
+        visibility: visible;
+        top: 10px;
+        right: -20px;
+        transform: rotate(-60deg);
+      }
+    }
+  }
+
+  // .game__foot
+
+  &__foot {
+    position: absolute;
+    top: 97px;
+    height: 50px;
+    width: 9px;
+    border-radius: 4px;
+    background-color: #000;
+
+    // .game__foot_right
+
+    &_right {
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s;
+
+      .er-6 & {
+        opacity: 1;
+        visibility: visible;
+        left: -16px;
+        transform: rotate(40deg);
+      }
+    }
+
+    // .game__foot_left
+
+    &_left {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s;
+
+      .er-7 & {
+        opacity: 1;
+        visibility: visible;
+        right: -16px;
+        transform: rotate(-40deg);
+      }
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .game {
+    &__board {
+      left: 32%;
+    }
+  }
+}
+
+@media (max-width: 499.98px) {
+  .game {
+    &__board {
+      left: 24%;
+    }
+  }
+}
+
+@media (max-width: 399.98px) {
+  .game {
+    &__board {
+      left: 19%;
+
+      &_hor {
+        width: 200px;
+      }
+    }
+  }
+}

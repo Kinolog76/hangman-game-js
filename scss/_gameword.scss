@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 
   span {
@@ -9,6 +10,20 @@
     font-size: 50px;
     font-weight: 700;
     color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+
+    & p.false {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    & p.true {
+      visibility: visible;
+      opacity: 1;
+    }
 
     &::after {
       content: '';
@@ -25,10 +40,11 @@
 
 @media (max-width: 449.98px) {
   .game__word {
-    gap: 5;
+    gap: 5px;
 
     span {
-      font-size: 44px;
+      font-size: 38px;
+      width: 30px;
     }
   }
 }

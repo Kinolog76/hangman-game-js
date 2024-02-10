@@ -11,7 +11,6 @@ let randomWord = wordsArr[randomWordNum];
 for (const letter of randomWord) {
   wordContainer.innerHTML += `<span><p class="false">${letter}</p></span>`;
 }
-console.log(randomWord);
 
 let buttons = document.querySelectorAll(".button__wrapper button");
 let word = document.querySelectorAll(".game__word span p");

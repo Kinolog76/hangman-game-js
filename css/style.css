@@ -263,6 +263,17 @@ body.winner, body.er-6.er-7 {
   font-weight: 800;
 }
 
+.record {
+  display: block;
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #00ff2f;
+  font-weight: 600;
+}
+.record #record {
+  font-weight: 800;
+}
+
 .button__wrapper {
   display: -webkit-box;
   display: -ms-flexbox;

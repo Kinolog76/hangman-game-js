@@ -1,10 +1,37 @@
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-
+//* Переменные
+let buttons = document.querySelectorAll(".button__wrapper button");
+const body = document.body;
+let errors = 1;
+let trueLetters = 0;
 const wordContainer = document.getElementById("word");
 const restart = document.querySelectorAll(".btn-restart");
 const record = document.getElementById("record");
+
+//* Создание Set из значений button
+const buttonsWalue = new Set();
+buttons.forEach((a) => {
+  buttonsWalue.add(a.innerHTML.toLowerCase());
+});
+
+//* Создание Set из нажатых клавиш
+const pressedButtons = new Set();
+window.addEventListener("keydown", function (event) {
+  //* Проверка нажатых кнопок
+  if (!pressedButtons.has(event.key.toLocaleLowerCase())) {
+    //* Проверка наличия нажатой кнопки в наборе кнопок
+    if (buttonsWalue.has(event.key.toLocaleLowerCase())) {
+      //* Клик на кнопку
+      const buttonToClick = [...buttons].find((button) => button.innerHTML.toLowerCase() === event.key.toLocaleLowerCase());
+      if (buttonToClick) buttonToClick.click();
+    }
+    //* Добавление нажатой кнопки в набор нажатых кнопок
+    pressedButtons.add(event.key.toLocaleLowerCase());
+  }
+});
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 //* Функция обновления рекорда
 function updateRecord() {
@@ -24,21 +51,14 @@ fetch("./data/database.json")
     let randomWordFromArray = getRandomInt(data[randomWordNum].gameWord.length);
     let randomWordArray = data[randomWordNum].gameWord[randomWordFromArray];
 
-    //* Переменные
-    let buttons = document.querySelectorAll(".button__wrapper button");
-    const body = document.body;
-    let errors = 1;
-    let trueLetters = 0;
-
     //* Взятие и вывод темы игры
     let gameTheme = document.querySelector(".theme__name");
     gameTheme.innerHTML = data[randomWordNum].gameTheme;
-    console.log(randomWordArray);
     //* Вовод букв
     for (const letter of randomWordArray) {
       wordContainer.innerHTML += `<span><p class="false">${letter}</p></span>`;
     }
-
+    console.log(randomWordArray);
     let word = document.querySelectorAll(".game__word span p");
     //* Функционал кнопок и появления букв слова
     buttons.forEach((buttonElement) => {

@@ -6,6 +6,8 @@ let trueLetters = 0;
 const wordContainer = document.getElementById("word");
 const restart = document.querySelectorAll(".btn-restart");
 const record = document.getElementById("record");
+const questionBtnOpen = document.querySelector(".panel_btn-info");
+const questionBtnClose = document.querySelector(".question-pop_close");
 
 //* Создание Set из значений button
 const buttonsWalue = new Set();
@@ -100,4 +102,14 @@ restart.forEach((btnRestart) => {
   btnRestart.addEventListener("click", function () {
     location.reload();
   });
+});
+
+//* Открытие попапа с правилами
+questionBtnOpen.addEventListener("click", function () {
+  body.classList.add("question-pop_active");
+});
+
+//* Закрытие попапа с правилами
+questionBtnClose.addEventListener("click", function () {
+  body.classList.remove("question-pop_active");
 });

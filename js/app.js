@@ -8,6 +8,22 @@ const restart = document.querySelectorAll(".btn-restart");
 const record = document.getElementById("record");
 const questionBtnOpen = document.querySelector(".panel_btn-info");
 const questionBtnClose = document.querySelector(".question-pop_close");
+const formBtnOpen = document.querySelector(".panel_btn-form");
+const formBtnClose = document.querySelector(".form-pop_close");
+const form = document.querySelector(".form-pop_form");
+const formInput = document.querySelectorAll(".form-pop_item input");
+
+//* Изменение сложности
+formInput.forEach((input) => {
+  input.addEventListener("change", () => {
+    localStorage.setItem("difficulty", input.id);
+  });
+});
+
+//* Проверка наличия сложности в localStorage
+if (localStorage.getItem("difficulty") == null) {
+  body.classList.add("form-pop_active");
+}
 
 //* Создание Set из значений button
 const buttonsWalue = new Set();
@@ -49,32 +65,52 @@ fetch("./data/database.json")
     //* Рандомный выбор темы
     let randomWordNum = getRandomInt(data.length);
 
-    //* Рандомное слово с масива
-    let randomWordFromArray = getRandomInt(data[randomWordNum].gameWord.length);
-    let randomWordArray = data[randomWordNum].gameWord[randomWordFromArray];
+    //* Рандомное слово с массива
+    let randomWordFromArray;
 
+    //* Функция выбора слова
+    function randomWordArray() {
+      return data[randomWordNum].gameWord[randomWordFromArray];
+    }
+
+    //* Функция выбора слова по сложности
+    function selectWordBasedOnDifficulty() {
+      //* Выбор слова по сложности
+      do {
+        randomWordFromArray = getRandomInt(data[randomWordNum].gameWord.length);
+        //* Проверка сложности и длины слова
+      } while (
+        (localStorage.getItem("difficulty") == "easy" && randomWordArray().length > 5) ||
+        (localStorage.getItem("difficulty") == "medium" && randomWordArray().length > 8) ||
+        (localStorage.getItem("difficulty") == "hard" && randomWordArray().length < 8)
+      );
+    }
+
+    selectWordBasedOnDifficulty();
+
+    console.log(randomWordArray());
     //* Взятие и вывод темы игры
     let gameTheme = document.querySelector(".theme__name");
     gameTheme.innerHTML = data[randomWordNum].gameTheme;
-    //* Вовод букв
-    for (const letter of randomWordArray) {
+    //* Вывод букв
+    for (const letter of randomWordArray()) {
       wordContainer.innerHTML += `<span><p class="false">${letter}</p></span>`;
     }
-    console.log(randomWordArray);
+
     let word = document.querySelectorAll(".game__word span p");
     //* Функционал кнопок и появления букв слова
     buttons.forEach((buttonElement) => {
       buttonElement.addEventListener("click", function () {
         let letterCheck = buttonElement.value.toLowerCase();
         //* Если угадал букву
-        if (randomWordArray.includes(letterCheck)) {
+        if (randomWordArray().includes(letterCheck)) {
           word.forEach((wordElement) => {
             if (letterCheck == wordElement.innerHTML) {
               wordElement.classList.add("true");
               wordElement.classList.remove("false");
               buttonElement.classList.add("btn-true");
               trueLetters++;
-              if (trueLetters == randomWordArray.length) {
+              if (trueLetters == randomWordArray().length) {
                 body.classList.add("winner");
                 //* Обновление рекорда
                 updateRecord();
@@ -104,12 +140,32 @@ restart.forEach((btnRestart) => {
   });
 });
 
-//* Открытие попапа с правилами
-questionBtnOpen.addEventListener("click", function () {
-  body.classList.add("question-pop_active");
-});
+//* Создаем класс для попапов
+class Modal {
+  //* Конструктор класса
+  constructor(openButton, closeButton, modalClass) {
+    //* Элементы попапа
+    this.openButton = openButton;
+    this.closeButton = closeButton;
+    this.modalClass = modalClass;
+    this.body = document.body;
 
-//* Закрытие попапа с правилами
-questionBtnClose.addEventListener("click", function () {
-  body.classList.remove("question-pop_active");
-});
+    //* Клик на кнопку открытия попапа
+    this.openButton.addEventListener("click", this.openModal.bind(this));
+    //* Клик на кнопку закрытия попапа
+    this.closeButton.addEventListener("click", this.closeModal.bind(this));
+  }
+
+  //* Функция открытия попапа
+  openModal() {
+    this.body.classList.add(this.modalClass + "_active");
+  }
+  //* Функция закрытия попапа
+  closeModal() {
+    this.body.classList.remove(this.modalClass + "_active");
+  }
+}
+
+//* Создаем экземпляры класса для попапов
+const questionModal = new Modal(questionBtnOpen, questionBtnClose, "question-pop");
+const formModal = new Modal(formBtnOpen, formBtnClose, "form-pop");

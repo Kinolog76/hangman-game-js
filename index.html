@@ -13,6 +13,7 @@
   <div class="wrapper">
     <div class="container">
       <div class="panel">
+        <span class="panel_btn-form">⚙</span>
         <span class="panel_btn-info">?</span>
       </div>
       <div class="theme">
@@ -87,15 +88,33 @@
     </div>
   </div>
   <div class="restart">
-    <button class="btn-restart">You lose <br> RESTART</button>
+    <button class="btn-restart">Вы проиграли <br> РЕСТАРТ</button>
   </div>
   <div class="winner-pop">
-    <button class="btn-restart">You won <br> RESTART
+    <button class="btn-restart">Вы победили <br> РЕСТАРТ
       <p class="record">
-        <span>Your record: </span>
+        <span>Ваш рекорд: </span>
         <span id="record"></span>
       </p>
     </button>
+  </div>
+  <div class="form-pop">
+    <h2>Выберите сложность игры</h2>
+    <form action="" class="form-pop_form">
+      <div class="form-pop_item">
+        <input type="radio" id="easy" name="difficulty" class="form-pop_checkbox">
+        <label for="easy">Легкий</label>
+      </div>
+      <div class="form-pop_item">
+        <input type="radio" id="medium" name="difficulty" class="form-pop_checkbox">
+        <label for="medium">Средний</label>
+      </div>
+      <div class="form-pop_item">
+        <input type="radio" id="hard" name="difficulty" class="form-pop_checkbox">
+        <label for="hard">Сложный</label>
+      </div>
+      <button type="submit" class="form-pop_close">x</button>
+    </form>
   </div>
   <script src="js/app.js"></script>
 </body>

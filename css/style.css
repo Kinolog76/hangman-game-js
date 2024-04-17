@@ -190,7 +190,7 @@ body {
   background: url(../img/bg.png);
   position: relative;
 }
-body.question-pop_active, body.winner, body.er-6.er-7 {
+body.form-pop_active, body.question-pop_active, body.winner, body.er-6.er-7 {
   overflow: hidden;
   pointer-events: none;
 }
@@ -202,9 +202,10 @@ body.question-pop_active, body.winner, body.er-6.er-7 {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: end;
+  gap: 15px;
   padding-block: 10px;
 }
-.panel_btn-info {
+.panel_btn-form, .panel_btn-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -225,6 +226,11 @@ body.question-pop_active, body.winner, body.er-6.er-7 {
   font-weight: 800;
   -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
           box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+.panel_btn-form:hover, .panel_btn-info:hover {
+  background-color: #cdcdcd;
 }
 
 .question-pop {
@@ -364,6 +370,116 @@ body.question-pop_active, body.winner, body.er-6.er-7 {
   font-weight: 800;
 }
 
+.form-pop {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  position: fixed;
+  max-width: 770px;
+  width: -webkit-fill-available;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  padding: 50px 15px;
+  -webkit-box-shadow: 0px 0px 20px 8px #575757;
+          box-shadow: 0px 0px 20px 8px #575757;
+  background: #f2f2f2;
+  border-radius: 20px;
+  z-index: 10;
+  /* .form-pop_form */
+  /* .form-pop_item */
+  /* .form-pop_checkbox */
+}
+.form-pop h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.form-pop_active .form-pop {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+.form-pop .form-pop_close {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 5px 6px 9px 5px;
+  height: 40px;
+  width: 40px;
+  border: 3px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #ff0000;
+  background-color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+}
+.form-pop_form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 20px;
+}
+.form-pop_item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
+}
+.form-pop_item:nth-child(1) input:checked + label {
+  background-color: #00ff2f;
+}
+.form-pop_item:nth-child(2) input:checked + label {
+  background-color: #fff000;
+}
+.form-pop_item:nth-child(3) input:checked + label {
+  background-color: #ff0000;
+}
+.form-pop_item input {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+.form-pop_item label {
+  text-align: center;
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px 20px;
+  border: 3px solid #000;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 800;
+}
+@media (max-width: 767.98px) {
+  .form-pop {
+    width: 85%;
+  }
+}
 .button__wrapper {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -450,13 +450,13 @@ body.form-pop_active, body.question-pop_active, body.winner, body.er-6.er-7 {
       -ms-flex: 0 0 30%;
           flex: 0 0 30%;
 }
-.form-pop_item:nth-child(1) input:checked + label {
+.form-pop_item:nth-child(1) input.selected + label, .form-pop_item:nth-child(1) input:hover + label, .form-pop_item:nth-child(1) input:checked + label {
   background-color: #00ff2f;
 }
-.form-pop_item:nth-child(2) input:checked + label {
+.form-pop_item:nth-child(2) input.selected + label, .form-pop_item:nth-child(2) input:hover + label, .form-pop_item:nth-child(2) input:checked + label {
   background-color: #fff000;
 }
-.form-pop_item:nth-child(3) input:checked + label {
+.form-pop_item:nth-child(3) input.selected + label, .form-pop_item:nth-child(3) input:hover + label, .form-pop_item:nth-child(3) input:checked + label {
   background-color: #ff0000;
 }
 .form-pop_item input {

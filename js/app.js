@@ -15,8 +15,12 @@ const formInput = document.querySelectorAll(".form-pop_item input");
 
 //* Изменение сложности
 formInput.forEach((input) => {
+  if (input.id == localStorage.getItem("difficulty")) {
+    input.checked = true;
+  }
   input.addEventListener("change", () => {
     localStorage.setItem("difficulty", input.id);
+    location.reload();
   });
 });
 

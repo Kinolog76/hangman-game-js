@@ -247,6 +247,8 @@ body {
 
     &:nth-child(1) {
       input {
+        &.selected,
+        &:hover,
         &:checked {
           &+label {
             background-color: #00ff2f;
@@ -257,6 +259,8 @@ body {
 
     &:nth-child(2) {
       input {
+        &.selected,
+        &:hover,
         &:checked {
           &+label {
             background-color: #fff000;
@@ -267,6 +271,8 @@ body {
 
     &:nth-child(3) {
       input {
+        &.selected,
+        &:hover,
         &:checked {
           &+label {
             background-color: #ff0000;

@@ -1,6 +1,6 @@
 //* Импорты классов, функций
-import { Modal } from "/js/classes.js";
-import { getRandomInt, updateRecord, reloadPage, changeDifficulty, buttonsKlick, reloadPageOnEnd } from "/js/functions.js";
+import { Modal } from "js/classes.js";
+import { getRandomInt, updateRecord, reloadPage, changeDifficulty, buttonsKlick, reloadPageOnEnd } from "js/functions.js";
 
 //* Переменные
 let buttons = document.querySelectorAll(".button__wrapper button");

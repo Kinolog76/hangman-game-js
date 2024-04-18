@@ -42,7 +42,7 @@ export function changeDifficulty(button) {
     }
     input.addEventListener("change", () => {
       localStorage.setItem("difficulty", input.id);
-      location.reload();
+      resetGame();
     });
   });
 }

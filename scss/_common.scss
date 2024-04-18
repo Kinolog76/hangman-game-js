@@ -17,6 +17,7 @@ body {
   gap: 15px;
   padding-block: 10px;
 
+  &_btn-restart,
   &_btn-form,
   &_btn-info {
     display: flex;

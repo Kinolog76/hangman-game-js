@@ -205,7 +205,7 @@ body.form-pop_active, body.question-pop_active, body.winner, body.er-6.er-7 {
   gap: 15px;
   padding-block: 10px;
 }
-.panel_btn-form, .panel_btn-info {
+.panel_btn-restart, .panel_btn-form, .panel_btn-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -229,7 +229,7 @@ body.form-pop_active, body.question-pop_active, body.winner, body.er-6.er-7 {
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
 }
-.panel_btn-form:hover, .panel_btn-info:hover {
+.panel_btn-restart:hover, .panel_btn-form:hover, .panel_btn-info:hover {
   background-color: #cdcdcd;
 }
 

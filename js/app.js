@@ -1,3 +1,6 @@
+import { Modal } from "/js/classes.js";
+import { getRandomInt, updateRecord, reloadPage, changeDifficulty, buttonsKlick, reloadPageOnEnd } from "/js/functions.js";
+
 //* Переменные
 let buttons = document.querySelectorAll(".button__wrapper button");
 const body = document.body;
@@ -10,57 +13,11 @@ const questionBtnOpen = document.querySelector(".panel_btn-info");
 const questionBtnClose = document.querySelector(".question-pop_close");
 const formBtnOpen = document.querySelector(".panel_btn-form");
 const formBtnClose = document.querySelector(".form-pop_close");
-const form = document.querySelector(".form-pop_form");
 const formInput = document.querySelectorAll(".form-pop_item input");
-
-//* Изменение сложности
-formInput.forEach((input) => {
-  if (input.id == localStorage.getItem("difficulty")) {
-    input.checked = true;
-  }
-  input.addEventListener("change", () => {
-    localStorage.setItem("difficulty", input.id);
-    location.reload();
-  });
-});
 
 //* Проверка наличия сложности в localStorage
 if (localStorage.getItem("difficulty") == null) {
   body.classList.add("form-pop_active");
-}
-
-//* Создание Set из значений button
-const buttonsWalue = new Set();
-buttons.forEach((a) => {
-  buttonsWalue.add(a.innerHTML.toLowerCase());
-});
-
-//* Создание Set из нажатых клавиш
-const pressedButtons = new Set();
-window.addEventListener("keydown", function (event) {
-  //* Проверка нажатых кнопок
-  if (!pressedButtons.has(event.key.toLocaleLowerCase())) {
-    //* Проверка наличия нажатой кнопки в наборе кнопок
-    if (buttonsWalue.has(event.key.toLocaleLowerCase())) {
-      //* Клик на кнопку
-      const buttonToClick = [...buttons].find((button) => button.innerHTML.toLowerCase() === event.key.toLocaleLowerCase());
-      if (buttonToClick) buttonToClick.click();
-    }
-    //* Добавление нажатой кнопки в набор нажатых кнопок
-    pressedButtons.add(event.key.toLocaleLowerCase());
-  }
-});
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-
-//* Функция обновления рекорда
-function updateRecord() {
-  let record = localStorage.getItem("record") || 0;
-  record = parseInt(record, 10);
-  record++;
-  localStorage.setItem("record", record.toString());
 }
 
 fetch("./data/database.json")
@@ -137,38 +94,17 @@ fetch("./data/database.json")
   })
   .catch((error) => console.error("Ошибка при загрузке JSON:", error));
 
+//* Перезагрузка страницы при окончании игры
+reloadPageOnEnd(buttons);
+
+//* Нажитие кнопок
+buttonsKlick(buttons);
+
+//* Изменение сложности
+changeDifficulty(formInput);
+
 //* Перезагрузка странички
-restart.forEach((btnRestart) => {
-  btnRestart.addEventListener("click", function () {
-    location.reload();
-  });
-});
-
-//* Создаем класс для попапов
-class Modal {
-  //* Конструктор класса
-  constructor(openButton, closeButton, modalClass) {
-    //* Элементы попапа
-    this.openButton = openButton;
-    this.closeButton = closeButton;
-    this.modalClass = modalClass;
-    this.body = document.body;
-
-    //* Клик на кнопку открытия попапа
-    this.openButton.addEventListener("click", this.openModal.bind(this));
-    //* Клик на кнопку закрытия попапа
-    this.closeButton.addEventListener("click", this.closeModal.bind(this));
-  }
-
-  //* Функция открытия попапа
-  openModal() {
-    this.body.classList.add(this.modalClass + "_active");
-  }
-  //* Функция закрытия попапа
-  closeModal() {
-    this.body.classList.remove(this.modalClass + "_active");
-  }
-}
+reloadPage(restart);
 
 //* Создаем экземпляры класса для попапов
 const questionModal = new Modal(questionBtnOpen, questionBtnClose, "question-pop");

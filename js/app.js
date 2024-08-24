@@ -1,6 +1,13 @@
 //* Импорты классов, функций
 import { Modal } from "./classes.js";
-import { getRandomInt, updateRecord, reloadPage, changeDifficulty, buttonsKlick, reloadPageOnEnd } from "./functions.js";
+import {
+  getRandomInt,
+  updateRecord,
+  reloadPage,
+  changeDifficulty,
+  buttonsKlick,
+  reloadPageOnEnd,
+} from "./functions.js";
 
 //* Переменные
 let buttons = document.querySelectorAll(".button__wrapper button");
@@ -25,92 +32,92 @@ if (localStorage.getItem("difficulty") == null) {
 fetch("./data/database.json")
   .then((response) => response.json())
   .then((data) => {
-    
-    //* Выбор слова в зависимости от сложности
-    function selectWordBasedOnDifficulty() {
-      let randomWordNum, randomWordFromArray, selectedWord;
-      do {
-        randomWordNum = getRandomInt(data.length);
-        randomWordFromArray = getRandomInt(data[randomWordNum].gameWord.length);
-        selectedWord = data[randomWordNum].gameWord[randomWordFromArray];
-      } while (
-        (localStorage.getItem("difficulty") == "easy" && selectedWord.length > 5) ||
-        (localStorage.getItem("difficulty") == "medium" && selectedWord.length > 8) ||
-        (localStorage.getItem("difficulty") == "hard" && selectedWord.length < 8)
-      );
-      console.log({ selectedWord, theme: data[randomWordNum].gameTheme });
-      return { selectedWord, theme: data[randomWordNum].gameTheme };
-    }
-
-    //* Обновление контейнера слова
-    function updateWordContainer(selectedWord, theme) {
-      document.querySelector(".theme__name").innerHTML = theme;
-      wordContainer.innerHTML = selectedWord
-        .split("")
-        .map((letter) => `<span><p class="false">${letter}</p></span>`)
-        .join("");
-    }
-
-    //* Сброс игры
-    window.resetGame = function () {
-      errors = 1;
-      trueLetters = 0;
-      body.className = "";
-      const { selectedWord, theme } = selectWordBasedOnDifficulty();
-      buttons.forEach((buttonElement) => {
-        buttonElement.className = "";
-        buttonElement.removeAttribute("disabled");
-      });
-      updateWordContainer(selectedWord, theme);
-    };
-
-    //* Сброс игры при изменении сложности
     formInput.forEach((input) => {
       input.addEventListener("click", () => {
-        resetGame();
+        resetGame(data);
       });
     });
-    resetBtn.addEventListener("click", resetGame);
-
-    //* Функционал отображения слова
-    buttons.forEach((buttonElement) => {
-      buttonElement.addEventListener("click", function () {
-        const letterCheck = buttonElement.value.toLowerCase();
-        const wordElements = document.querySelectorAll(".game__word span p");
-        let found = false;
-
-        //* Проверка наличие нажатой буквы в слове
-        wordElements.forEach((wordElement) => {
-          if (letterCheck === wordElement.innerHTML) {
-            wordElement.classList.replace("false", "true");
-            buttonElement.classList.add("btn-true");
-            trueLetters++;
-            found = true;
-          }
-        });
-
-        //* Если выбраной буквы нет в слове
-        if (!found) {
-          body.classList.add(`er-${errors++}`);
-          buttonElement.classList.add("btn-false");
-          //* Если слово не отгадано
-          if (errors === 8) {
-            localStorage.setItem("record", 0);
-            wordElements.forEach((wordElement) => {
-              wordElement.classList.add("true");
-            });
-          }
-          //* Если слово отгадано
-        } else if (trueLetters === wordElements.length) {
-          body.classList.add("winner");
-          updateRecord();
-          record.innerHTML = localStorage.getItem("record");
-        }
-      });
-    });
-    resetGame();
+    resetBtn.addEventListener("click", () => resetGame(data));
+    setupButtonListeners(data);
+    resetGame(data);
   })
   .catch((error) => console.error("Ошибка при загрузке JSON:", error));
+
+//* Выбор слова в зависимости от сложности
+function selectWordBasedOnDifficulty(data) {
+  let randomWordNum, randomWordFromArray, selectedWord;
+  do {
+    randomWordNum = getRandomInt(data.length);
+    randomWordFromArray = getRandomInt(data[randomWordNum].gameWord.length);
+    selectedWord = data[randomWordNum].gameWord[randomWordFromArray];
+  } while (
+    (localStorage.getItem("difficulty") == "easy" && selectedWord.length > 5) ||
+    (localStorage.getItem("difficulty") == "medium" && selectedWord.length > 8) ||
+    (localStorage.getItem("difficulty") == "hard" && selectedWord.length < 8)
+  );
+  return { selectedWord, theme: data[randomWordNum].gameTheme };
+}
+
+//* Обновление контейнера слова
+function updateWordContainer(selectedWord, theme) {
+  document.querySelector(".theme__name").innerHTML = theme;
+  wordContainer.innerHTML = selectedWord
+    .split("")
+    .map((letter) => `<span><p class="false">${letter}</p></span>`)
+    .join("");
+}
+
+//* Сброс игры
+window.resetGame = function (data) {
+  errors = 1;
+  trueLetters = 0;
+  body.className = "";
+  const { selectedWord, theme } = selectWordBasedOnDifficulty(data);
+  buttons.forEach((buttonElement) => {
+    buttonElement.className = "";
+    buttonElement.removeAttribute("disabled");
+  });
+  updateWordContainer(selectedWord, theme);
+};
+
+//* Функционал отображения слова
+function setupButtonListeners() {
+  buttons.forEach((buttonElement) => {
+    buttonElement.addEventListener("click", function () {
+      const letterCheck = buttonElement.value.toLowerCase();
+      const wordElements = document.querySelectorAll(".game__word span p");
+      let found = false;
+
+      //* Проверка наличие нажатой буквы в слове
+      wordElements.forEach((wordElement) => {
+        if (letterCheck === wordElement.innerHTML) {
+          wordElement.classList.replace("false", "true");
+          buttonElement.classList.add("btn-true");
+          trueLetters++;
+          found = true;
+        }
+      });
+
+      //* Если выбраной буквы нет в слове
+      if (!found) {
+        body.classList.add(`er-${errors++}`);
+        buttonElement.classList.add("btn-false");
+        //* Если слово не отгадано
+        if (errors === 8) {
+          localStorage.setItem("record", 0);
+          wordElements.forEach((wordElement) => {
+            wordElement.classList.add("true");
+          });
+        }
+        //* Если слово отгадано
+      } else if (trueLetters === wordElements.length) {
+        body.classList.add("winner");
+        updateRecord();
+        record.innerHTML = localStorage.getItem("record");
+      }
+    });
+  });
+}
 
 //* Перезагрузка страницы при окончании игры
 reloadPageOnEnd(buttons);
